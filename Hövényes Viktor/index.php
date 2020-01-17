@@ -1,10 +1,6 @@
 <?php require_once 'Application/Core/add.php'?>
 <?php require_once 'Application/functions.php'?>
-<?php
-/**
- * Adatok definiálása
- */
-?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -12,26 +8,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Képek</title>
-    <link href="Application/style/style.css" rel="stylesheet" type="text/css">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="Application/Style/style.css">
 </head>
 <body>
-<div class="">Képek</div>
-        <hr>
-        <ul>
-            <li><a href="index.php?action=main">Home</a></li>
-            <li><a href="index.php?action=add">Upload</a></li>
-        </ul>
-    </aside>
-    <main id="main-content">
-        <?php
-            switch(@$_GET['action'])
-            {
-                case 'main':include_once 'Application/main.php'; break;
-                case 'add': include_once 'Application/add.php'; break;
-            }
-        ?>
-    </main>
+    <?php 
+    require_once 'Application/Templates/header.html';
+    $jsonfile = file_get_contents("Application/Datas/photos.json");
+    if(isset($_GET["page"]))
+    {
+        $page = $_GET["page"];
+        switch($page)
+        {
+            case 'home':
+            require_once 'Application/Core/home.php';
+            break;
+            case 'upload':
+            require_once 'Application/Core/add.php';
+            break;
 
+            default:
+            break;
+        }
+    }
+    else
+    {
+        echo "<br> />Ez az értékátadás nélküli rész";
+    }
+
+    ?>
 </body>
 </html>
+
+
